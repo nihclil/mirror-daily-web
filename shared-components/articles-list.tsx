@@ -5,6 +5,7 @@ import SecondaryArticleCard from './secondary-article-card'
 import InfiniteScrollList from '@readr-media/react-infinite-scroll-list'
 import { notFound } from 'next/navigation'
 import type { PostData } from '@/utils/data-process'
+import type { GtmSectionPageEvents } from '@/types/section'
 
 type Props<T> = {
   initialPosts: T[]
@@ -12,6 +13,7 @@ type Props<T> = {
   name: string
   totalAmount: number
   fetchMorePosts: (page: number) => Promise<T[]>
+  gtmEvents: GtmSectionPageEvents
 }
 
 const PAGE_SIZE = 12
@@ -22,10 +24,13 @@ export default function ArticlesList<T extends PostData>({
   name,
   totalAmount,
   fetchMorePosts,
+  gtmEvents,
 }: Props<T>): ReactElement {
   const [firstPost, ...otherPosts] = initialPosts
   if (!firstPost) notFound()
   const otherPostsCount = totalAmount - 1
+  const { clickArticle, clickFirstArticleImg, clickFirstArticleTitle } =
+    gtmEvents
   return (
     <div className="flex w-full max-w-screen-sm flex-col items-center md:max-w-[670px] lg:max-w-[740px]">
       <div className="mb-5 w-full pl-[23px] pr-[22px] md:mb-7 md:px-0">
@@ -42,7 +47,15 @@ export default function ArticlesList<T extends PostData>({
       </div>
       <div className="flex w-full flex-col items-start">
         <div className="mb-10 w-full md:mb-[50px]">
-          <MainArticleCard color={color} postItem={firstPost} />
+          <MainArticleCard
+            color={color}
+            postItem={firstPost}
+            gtmEvents={{
+              clickArticle,
+              clickFirstArticleImg,
+              clickFirstArticleTitle,
+            }}
+          />
         </div>
         <div className="pl-[23px] pr-[22px] md:px-0">
           <div className="flex max-w-[330px] flex-col gap-y-5 md:max-w-[670px] md:gap-y-8 lg:max-w-[725px]">

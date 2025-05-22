@@ -6,6 +6,7 @@ import { SITE_NAME } from '@/constants/misc'
 import { getAuthorPageUrl } from '@/utils/site-urls'
 import { getDefaultMetadata } from '@/utils/common'
 import ArticlesSection from '../_components/articles-section'
+import { gtmEvents } from '@/constants/gtm'
 
 // add segment config to prevent data fetch during build
 export const dynamic = 'force-dynamic'
@@ -74,8 +75,12 @@ export default async function Home({ params }: PageProps) {
         initialList={posts}
         fetchMorePosts={fetchMorePosts}
         totalAmount={totalAmount}
+        gtmEvents={{
+          story: gtmEvents.author.article,
+          loadmore: gtmEvents.author.more,
+        }}
       />
-      <PopularNewsSection />
+      <PopularNewsSection gtmEvent={gtmEvents.author.popularArticle} />
     </main>
   )
 }

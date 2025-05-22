@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import { SITE_NAME } from '@/constants/misc'
 import { getTagPageUrl } from '@/utils/site-urls'
 import { getDefaultMetadata } from '@/utils/common'
+import { gtmEvents } from '@/constants/gtm'
 
 type PageProps = {
   params: { slug: string }
@@ -74,8 +75,12 @@ export default async function Page({
         initialList={posts}
         totalAmount={totalAmount}
         fetchMorePosts={fetchMorePosts}
+        gtmEvents={{
+          story: gtmEvents.tag.article,
+          loadmore: gtmEvents.tag.more,
+        }}
       />
-      <PopularNewsSection />
+      <PopularNewsSection gtmEvent={gtmEvents.tag.popularArticle} />
     </main>
   )
 }

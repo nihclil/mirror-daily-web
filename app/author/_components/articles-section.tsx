@@ -1,11 +1,19 @@
 import ArticlesList from '../../../shared-components/search/articles-list'
-import type { AuthorInfo, AuthorPost } from '@/types/author'
+import type {
+  AuthorInfo,
+  AuthorPost,
+  GtmAuthorPageEvents,
+} from '@/types/author'
 
 type Props = {
   info: AuthorInfo
   initialList: AuthorPost[]
   totalAmount: number
   fetchMorePosts: (page: number) => Promise<AuthorPost[]>
+  gtmEvents: {
+    story: GtmAuthorPageEvents['article']
+    loadmore: GtmAuthorPageEvents['more']
+  }
 }
 
 export default function ArticleSection({
@@ -13,6 +21,7 @@ export default function ArticleSection({
   initialList,
   fetchMorePosts,
   totalAmount,
+  gtmEvents,
 }: Props) {
   return (
     <section className="flex flex-col items-center">
@@ -29,6 +38,7 @@ export default function ArticleSection({
           fetchMorePosts={fetchMorePosts}
           initialList={initialList}
           totalAmount={totalAmount}
+          gtmEvents={gtmEvents}
         />
       </div>
 

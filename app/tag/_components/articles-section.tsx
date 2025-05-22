@@ -1,11 +1,15 @@
 import ArticlesList from '../../../shared-components/search/articles-list'
-import type { TagInfo, TagPost } from '@/types/tag'
+import type { TagInfo, TagPost, GtmTagPageEvents } from '@/types/tag'
 
 type Props = {
   info: TagInfo
   initialList: TagPost[]
   totalAmount: number
   fetchMorePosts: (page: number) => Promise<TagPost[]>
+  gtmEvents: {
+    story: GtmTagPageEvents['article']
+    loadmore: GtmTagPageEvents['more']
+  }
 }
 
 export default function ArticleSection({
@@ -13,6 +17,7 @@ export default function ArticleSection({
   initialList,
   fetchMorePosts,
   totalAmount,
+  gtmEvents,
 }: Props) {
   return (
     <section className="flex flex-col items-center">
@@ -28,6 +33,7 @@ export default function ArticleSection({
           fetchMorePosts={fetchMorePosts}
           initialList={initialList}
           totalAmount={totalAmount}
+          gtmEvents={gtmEvents}
         />
       </div>
 

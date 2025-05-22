@@ -1,7 +1,18 @@
 import FeaturedNewsCard from './featured-news-card'
 import { fetchPopularPost } from '@/app/actions-general'
+import type { GtmAuthorPageEvents } from '@/types/author'
+import type { GtmSectionPageEvents } from '@/types/section'
+import type { GtmTagPageEvents } from '@/types/tag'
 
-export default async function PopularNewsSection(): Promise<JSX.Element | null> {
+type Props = {
+  gtmEvent:
+    | GtmAuthorPageEvents['popularNews']
+    | GtmTagPageEvents['popularNews']
+    | GtmSectionPageEvents['popularNews']
+}
+export default async function PopularNewsSection({
+  gtmEvent,
+}: Props): Promise<JSX.Element | null> {
   const articles = await fetchPopularPost()
   if (!articles.length) return null
 
@@ -13,7 +24,7 @@ export default async function PopularNewsSection(): Promise<JSX.Element | null> 
       <div className="grid md:grid-cols-2 md:gap-7 lg:grid-cols-1 lg:gap-y-5">
         {articles &&
           articles.map((item) => (
-            <FeaturedNewsCard {...item} key={item.postId} />
+            <FeaturedNewsCard {...item} key={item.postId} gtmEvent={gtmEvent} />
           ))}
       </div>
     </section>

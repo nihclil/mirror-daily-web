@@ -1,4 +1,5 @@
 import type { HeroImage } from './common'
+import type { gtmEventMap } from '@/constants/gtm'
 
 export type TagPost = {
   title: string
@@ -13,3 +14,5 @@ export type TagPost = {
 export type TagInfo = {
   name: string
 }
+
+export type GtmTagPageEvents = (typeof gtmEventMap)['tag']

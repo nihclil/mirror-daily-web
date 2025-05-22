@@ -1,7 +1,12 @@
 import Link from 'next/link'
 import CustomImage from '../custom-image'
 import type { PostDataWithSection } from '@/utils/data-process'
+import type { GtmTagPageEvents } from '@/types/tag'
+import type { GtmAuthorPageEvents } from '@/types/author'
 
+type Props = PostDataWithSection & {
+  gtmTag: GtmTagPageEvents['article'] | GtmAuthorPageEvents['article']
+}
 export default function ArticleCard({
   title,
   link,
@@ -10,14 +15,15 @@ export default function ArticleCard({
   sectionColor,
   textContent,
   postMainImage,
-}: PostDataWithSection) {
+  gtmTag,
+}: Props) {
   return (
     <Link
       prefetch={false}
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex max-w-[340px] flex-col md:w-[280px] md:max-w-none lg:w-[240px]"
+      className={`flex max-w-[340px] flex-col md:w-[280px] md:max-w-none lg:w-[240px] ${gtmTag}`}
     >
       <figure className="relative mb-1 aspect-[340/228] overflow-hidden rounded md:h-[188px] lg:h-[160px]">
         <CustomImage

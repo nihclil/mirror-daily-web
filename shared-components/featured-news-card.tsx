@@ -2,20 +2,31 @@ import Link from 'next/link'
 import CustomImage from './custom-image'
 import type { PopularNews } from '@/types/common'
 import type { ReactElement } from 'react'
+import type { GtmTagPageEvents } from '@/types/tag'
+import type { GtmAuthorPageEvents } from '@/types/author'
+import type { GtmSectionPageEvents } from '@/types/section'
 
+type Props = PopularNews & {
+  gtmEvent:
+    | GtmAuthorPageEvents['popularNews']
+    | GtmTagPageEvents['popularNews']
+    | GtmSectionPageEvents['popularNews']
+}
 export default function FeaturedNewsCard({
   sectionName,
   sectionColor,
   postName,
   link,
   heroImage,
-}: PopularNews): ReactElement {
+  gtmEvent,
+}: Props): ReactElement {
   return (
     <Link
       prefetch={false}
       href={link}
       target="_blank"
       rel="noopener noreferrer"
+      className={`${gtmEvent}`}
     >
       <figure className="flex max-w-[280px] flex-col gap-y-2 lg:w-[240px] lg:gap-y-3">
         <div className="relative aspect-[280/188] overflow-hidden rounded lg:h-[160px]">

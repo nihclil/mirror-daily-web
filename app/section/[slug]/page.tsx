@@ -8,6 +8,7 @@ import { getSectionPageUrl } from '@/utils/site-urls'
 import { getDefaultMetadata } from '@/utils/common'
 import { DesktopGptAd } from '@/shared-components/gpt-ad/desktop-gpt-ad'
 import { MobileGptAd } from '@/shared-components/gpt-ad/mobile-gpt-ad'
+import { gtmEventMap } from '@/constants/gtm'
 
 type PageProps = { params: { slug: string } }
 
@@ -91,9 +92,10 @@ export default async function Page({
           color={color}
           name={name}
           fetchMorePosts={fetchMorePosts}
+          gtmEvents={gtmEventMap.section}
         />
-        <hr className="my-10 hidden w-[670px] border border-[#000928] md:block lg:hidden" />
-        <PopularNewsSection />
+        <hr className="my-10 hidden w-[670px] border border-[#42444d] md:block lg:hidden" />
+        <PopularNewsSection gtmEvent={gtmEventMap.section.popularNews} />
         {/* <MobileGptAd
           slotKey="mirrordaily_list_MW_320x100_FIX"
           customClasses="fixed bottom-0 auto z-[9999]"

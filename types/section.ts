@@ -1,4 +1,5 @@
 import type { HeroImage } from './common'
+import type { gtmEventMap } from '@/constants/gtm'
 
 export type SectionPost = {
   id: string
@@ -8,3 +9,5 @@ export type SectionPost = {
   postMainImage: HeroImage
   textContent: string
 }
+
+export type GtmSectionPageEvents = (typeof gtmEventMap)['section']
